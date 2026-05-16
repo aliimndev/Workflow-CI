@@ -34,6 +34,12 @@ jobs:
           mv MLProject/mlruns .
           echo "Folder mlruns dipindahkan ke root"
       
+      - name: Upload artifacts to GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: mlflow-artifacts
+          path: mlruns/
+      
       - name: Create Dockerfile
         run: |
           cat > Dockerfile << DOCKERFILE
