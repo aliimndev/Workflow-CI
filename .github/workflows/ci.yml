@@ -19,10 +19,13 @@ jobs:
       - name: Install dependencies
         run: pip install mlflow==2.19.0 scikit-learn pandas numpy
       
-      - name: Run MLflow Project
+      - name: Run modelling script
+        working-directory: ./MLProject
+        run: python modelling.py
+      
+      - name: Get RUN_ID
         working-directory: ./MLProject
         run: |
-          mlflow run . --experiment-name=ci_experiment
           echo "RUN_ID=$(cat run_id.txt)" >> $GITHUB_ENV
       
       - name: Upload artifacts to GitHub

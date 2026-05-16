@@ -1,5 +1,8 @@
 name: telco_churn_ci
-conda_env: conda.yaml
+
+docker_env:
+  image: python:3.12.7
+
 entry_points:
   main:
     command: "python modelling.py"
