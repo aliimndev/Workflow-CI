@@ -20,18 +20,19 @@ jobs:
         run: pip install mlflow==2.19.0 scikit-learn pandas numpy
       
       - name: Run modelling script
-        working-directory: ./MLProject
-        run: python modelling.py
+        run: |
+          cd MLProject
+          python modelling.py
+          cd ..
       
       - name: Build Docker Image
         run: |
           cd MLProject
           RUN_ID=$(cat run_id.txt)
-          cd ..
-          MODEL_PATH=$(find mlruns -name "model" -type d | grep "$RUN_ID" | head -1)
+          MODEL_PATH=$(find . -name "model" -path "*/artifacts/model" -type d | head -1)
           echo "RUN_ID: $RUN_ID"
           echo "MODEL_PATH: $MODEL_PATH"
-          mlflow models build-docker -m "file://$GITHUB_WORKSPACE/$MODEL_PATH" -n "telco-churn-model:latest"
+          mlflow models build-docker -m "file://$(pwd)/$MODEL_PATH" -n "telco-churn-model:latest"
       
       - name: Login to Docker Hub
         uses: docker/login-action@v2
