@@ -24,12 +24,14 @@ jobs:
         run: python modelling.py
       
       - name: Build Docker Image
-        working-directory: ./MLProject
         run: |
+          cd MLProject
           RUN_ID=$(cat run_id.txt)
-          MODEL_PATH=$(find ../mlruns -name "model" -type d | grep "$RUN_ID")
-          echo "Model path: $MODEL_PATH"
-          mlflow models build-docker -m "file://$(realpath $MODEL_PATH)" -n "telco-churn-model:latest"
+          cd ..
+          MODEL_PATH=$(find mlruns -name "model" -type d | grep "$RUN_ID" | head -1)
+          echo "RUN_ID: $RUN_ID"
+          echo "MODEL_PATH: $MODEL_PATH"
+          mlflow models build-docker -m "file://$GITHUB_WORKSPACE/$MODEL_PATH" -n "telco-churn-model:latest"
       
       - name: Login to Docker Hub
         uses: docker/login-action@v2
