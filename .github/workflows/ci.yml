@@ -16,12 +16,12 @@ jobs:
         with:
           python-version: '3.12.7'
       
-      - name: Install MLflow
-        run: pip install mlflow==2.19.0
+      - name: Install dependencies
+        run: pip install mlflow==2.19.0 scikit-learn pandas numpy
       
       - name: Run MLflow Project
         working-directory: ./MLProject
-        run: mlflow run . --experiment-name=ci_experiment
+        run: mlflow run . --experiment-name=ci_experiment --env-manager local
       
       - name: Get RUN_ID
         id: get_run_id
