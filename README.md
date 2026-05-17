@@ -5,13 +5,14 @@
 Repository CI/CD untuk otomatisasi training model Telco Customer Churn. Workflow akan melatih ulang model dan push Docker image ke Docker Hub setiap push ke main.
 
 ```Struktur
-Workflow-CI/  
-├── .github/workflows/ci.yml  
-├── MLProject/  
-│   ├── MLProject  
-│   ├── modelling.py  
-│   └── telco_customer_churn_preprocessing/  
-└── README.md  
+Workflow-CI/
+├── .github/workflows/ci.yml
+├── MLProject/
+│   ├── MLProject
+│   ├── conda.yaml
+│   ├── modelling.py
+│   └── telco_customer_churn_preprocessing/
+└── README.md
 ```
 ## Workflow
 Trigger: Push ke main atau manual dispatch  
