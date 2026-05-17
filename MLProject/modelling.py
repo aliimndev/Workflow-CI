@@ -5,9 +5,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 import os
 
-experiment_name = "CI_Training"
-mlflow.set_experiment(experiment_name)
-
 data = np.load('telco_customer_churn_preprocessing/train.npz')
 X, y = data['X_train'], data['y_train']
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
